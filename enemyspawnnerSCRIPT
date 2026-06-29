@@ -1,0 +1,45 @@
+using UnityEngine;
+
+public class enemyspawnerscript : MonoBehaviour
+{
+    public GameObject[] enemyPrefab;
+    public float spawnTime;
+    private float timer;
+    private int currentEnemy;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        timer = spawnTime;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            SpawnEnemy();
+        }
+
+    }
+    void SpawnEnemy()
+    { Vector3 spawnPos = transform.position;
+        //spawnPos.x += Random.Range(0, 3f);
+
+
+
+        GameObject enemy=Instantiate(enemyPrefab[currentEnemy], spawnPos, Quaternion.identity);
+        float angle = Random.Range(-120f, -60f);
+        float rad = angle * Mathf.Deg2Rad;
+        Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+        enemyMovement em = enemy.GetComponent<enemyMovement>();
+        if (em != null ) 
+            em.SetDirection(direction);
+        
+        currentEnemy++;
+        if (currentEnemy >= enemyPrefab.Length)
+            currentEnemy = 0;
+        //{ this.enabled = false; }
+        timer = spawnTime;
+    }
+}
