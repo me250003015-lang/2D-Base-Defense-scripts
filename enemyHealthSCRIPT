@@ -1,0 +1,55 @@
+using UnityEngine;
+
+public class EnemyHealth : MonoBehaviour
+{
+    public Sprite[] damageSprites;
+    private SpriteRenderer sr;
+
+    public int health = 30;
+    private int maxHealth;
+
+    void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        maxHealth = health;
+
+        if (damageSprites.Length > 0)
+        {
+            sr.sprite = damageSprites[0];
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        int actualDamage = Mathf.Min(damage, health);
+        health -= actualDamage;
+
+        ScoreManager.score += actualDamage;
+
+        UpdateSprite();
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void UpdateSprite()
+    {
+        if (damageSprites.Length == 0)
+            return;
+
+        float healthPercent = (float)health / maxHealth;
+
+        int spriteIndex = Mathf.FloorToInt((1f - healthPercent) * damageSprites.Length);
+
+        spriteIndex = Mathf.Clamp(spriteIndex, 0, damageSprites.Length - 1);
+
+        sr.sprite = damageSprites[spriteIndex];
+    }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+}
