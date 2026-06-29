@@ -1,0 +1,19 @@
+using UnityEngine;
+
+public class enemyMovement : MonoBehaviour
+{
+    public float speed = 3f;
+    private Vector2 moveDirection;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public void SetDirection(Vector2 direction)
+    {
+        moveDirection = direction.normalized;
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Translate(moveDirection * speed * Time.deltaTime,Space.World);
+    }
+}
