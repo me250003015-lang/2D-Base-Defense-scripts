@@ -20,10 +20,14 @@ Enemy Defense Game is a simple 2D game developed in Unity. The player must prote
 
 ## Gameplay
 1. Enemies spawn from the top of the screen.
-2. The player clicks enemies to destroy them.
-3. Each destroyed enemy increases the score.
-4. If an enemy reaches the base, the game ends.
-5. The final score is displayed, and the player can restart the game.
+2. The player clicks(left click on mouse) enemies to destroy them.
+3. Player can activate a ShockWave(Right click on mouse).
+4. ShockWave destroys all enemies spawnning in it's way(It has preset cooldown time).
+5. Each destroyed enemy increases the score.
+6. Enemy attacks reduces the Base Health.
+7. Once the Base Health reaches zero, the game immediately ends.
+8. And a Game Over screen is displayed
+9. The final score is displayed, and the player can restart the game.
 
 ## Project Structure
 ```
