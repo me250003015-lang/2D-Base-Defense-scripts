@@ -1,0 +1,33 @@
+using UnityEngine;
+using System.Collections;
+
+public class ShockwaveAbility : MonoBehaviour
+{
+    public GameObject shockwavePrefab;
+    public Transform spawnPoint;
+
+    public float cooldown = 20f;
+
+    private bool canUse = true;
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1) && canUse)
+        {
+            Instantiate(shockwavePrefab,
+                        spawnPoint.position,
+                        Quaternion.identity);
+
+            StartCoroutine(Cooldown());
+        }
+    }
+
+    IEnumerator Cooldown()
+    {
+        canUse = false;
+
+        yield return new WaitForSeconds(cooldown);
+
+        canUse = true;
+    }
+}
