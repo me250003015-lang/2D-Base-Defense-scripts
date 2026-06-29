@@ -1,0 +1,24 @@
+using UnityEngine;
+
+public class enemyAttack : MonoBehaviour
+{
+    private EnemyHealth enemyHealth;
+
+    private void Start()
+    {
+        enemyHealth = GetComponent<EnemyHealth>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        baseHealth baseHP = collision.gameObject.GetComponent<baseHealth>();
+
+        if (baseHP != null)
+        {
+            // Damage base equal to enemy's current health
+            baseHP.TakeDamage ( enemyHealth.health);
+
+            Destroy(gameObject);
+        }
+    }
+}
