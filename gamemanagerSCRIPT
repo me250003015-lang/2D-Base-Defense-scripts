@@ -1,0 +1,20 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public GameObject gameOverPanel;
+
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f; // Pause game
+    }
+
+    public void PlayAgain()
+    {
+        Time.timeScale = 1f; // Resume time
+        ScoreManager.score = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+}
