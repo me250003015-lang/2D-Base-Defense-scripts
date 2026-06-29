@@ -1,0 +1,17 @@
+using UnityEngine;
+
+public class EnemyClick : MonoBehaviour
+{
+    public int clickDamage = 10;
+    private EnemyHealth enemyHealth;
+
+    private void Start()
+    {
+        enemyHealth = GetComponent<EnemyHealth>();
+    }
+
+    private void OnMouseDown()
+    {
+        enemyHealth.TakeDamage(clickDamage);
+    }
+}
