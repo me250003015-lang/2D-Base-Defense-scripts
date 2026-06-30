@@ -1,33 +1,44 @@
 using UnityEngine;
-using System.Collections;
+using TMPro;
 
 public class ShockwaveAbility : MonoBehaviour
 {
     public GameObject shockwavePrefab;
     public Transform spawnPoint;
+    public TMP_Text coolDownText;
 
     public float cooldown = 20f;
 
-    private bool canUse = true;
+    private float cooldownTimer = 0f;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && canUse)
+        Debug.Log(cooldownTimer);
+        // Cooldown timer
+        if (cooldownTimer > 0)
+        {
+            cooldownTimer -= Time.deltaTime;
+
+            if (cooldownTimer < 0)
+                cooldownTimer = 0;
+
+            if (coolDownText != null)
+                coolDownText.text = "Shockwave: " + Mathf.Ceil(cooldownTimer) + "s";
+        }
+        else
+        {
+            if (coolDownText != null)
+                coolDownText.text = "Shockwave: 0s";
+        }
+
+        // Use ability
+        if (Input.GetMouseButtonDown(1) && cooldownTimer <= 0)
         {
             Instantiate(shockwavePrefab,
                         spawnPoint.position,
                         Quaternion.identity);
 
-            StartCoroutine(Cooldown());
+            cooldownTimer = cooldown;
         }
-    }
-
-    IEnumerator Cooldown()
-    {
-        canUse = false;
-
-        yield return new WaitForSeconds(cooldown);
-
-        canUse = true;
     }
 }
